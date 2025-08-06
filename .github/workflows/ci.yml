@@ -1,9 +1,9 @@
-name: CI Pipeline
+name: CI-CD Pipeline
 on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,3 +21,13 @@ jobs:
           context: .
           push: true
           tags: alanlee948/myapp:latest
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'latest'
+      - name: Deploy to Kubernets
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
