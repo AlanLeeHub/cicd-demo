@@ -27,7 +27,5 @@ jobs:
           version: 'latest'
       - name: Deploy to Kubernets
         run: |
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          kubectl apply -f deployment.yaml --dry-run=server
+          kubectl apply -f service.yaml --dry-run=server
