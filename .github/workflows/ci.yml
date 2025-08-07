@@ -27,5 +27,5 @@ jobs:
           version: 'latest'
       - name: Deploy to Kubernets
         run: |
-          kubectl apply -f deployment.yaml --dry-run=server
-          kubectl apply -f service.yaml --dry-run=server
+          kubectl apply -f deployment.yaml --dry-run=client --validate=true
+          kubectl apply -f service.yaml --dry-run=client --validate=true
